@@ -68,3 +68,25 @@ void exibir_mapa(struct Territorio *mapa, int num_territorios) {
     printf("----------------------------------------------------------------\n");
 }
 
+void simular_batalha(struct Territorio *atacante, struct Territorio *defensor) {
+    int dado_ataque = rand() % 6 + 1;
+    int dado_defesa = rand() % 6 + 1;
+
+    printf("\n--- Batalha ---\n");
+    printf("Atacante (%s): %d\n", atacante->nome, dado_ataque);
+    printf("Defensor (%s): %d\n", defensor->nome, dado_defesa);
+
+    if (dado_ataque >= dado_defesa) {
+        printf("Atacante vence! %s perde 1 tropa.\n", defensor->nome);
+        defensor->num_tropas--;
+        if (defensor->num_tropas == 0) {
+            printf("%s foi conquistado por %s!\n", defensor->nome, atacante->nome);
+            strcpy(defensor->cor_exercito, atacante->cor_exercito);
+            defensor->num_tropas = 1; // Atacante ocupa com 1 tropa
+        }
+    } else {
+        printf("Defensor vence! Nenhuma mudanca.\n");
+    }
+}
+
+
