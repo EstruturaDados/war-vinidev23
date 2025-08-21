@@ -176,13 +176,13 @@ void exibir_mapa(const struct Territorio *mapa) {
     printf("| No. | Nome do Territorio | Cor do Exercito | Numero de Tropas |\n");
     printf("----------------------------------------------------------------\n");
     for (int i = 0; i < NUM_TERRITORIOS; i++) {
-        printf("| %-3d | %-18s | %-15s | %-16d |\n", i + 1, mapa[i].nome, mapa[i].cor_exercicio, mapa[i].num_tropas);
+        printf("| %-3d | %-18s | %-15s | %-16d |\n", i + 1, mapa[i].nome, mapa[i], mapa[i].num_tropas);
     }
     printf("----------------------------------------------------------------\n");
 }
 
 void inicializar_missao(struct Missao *missao) {
-    missao->tipo = rand() % 2 + 1; // Sorteia 1 ou 2
+    missao->tipo = rand() % 2 + 1;
     if (missao->tipo == 1) {
         strcpy(missao->descricao, "Destrua o exercito Verde.");
     } else {
@@ -209,4 +209,25 @@ void simular_ataque(struct Territorio *atacante, struct Territorio *defensor) {
     } else {
         printf("Defensor vence! Nenhuma mudanca.\n");
     }
+}
+
+int verificar_missao(const struct Missao *missao, const struct Territorio *mapa) {
+    if (missao->tipo == 1) {
+        for (int i = 0; i < NUM_TERRITORIOS; i++) {
+            if (strcmp(mapa[i].cor_exercito, "Verde") == 0) {
+                return 0;
+            }
+        }
+        return 1;
+    } else if (missao->tipo == 2) {
+        const char *minha_cor = mapa[0].cor_exercito;
+        int territorios_conquistados = 0;
+        for (int i = 0; i < NUM_TERRITORIOS; i++) {
+            if (strcmp(mapa[i].cor_exercito, minha_cor) == 0) {
+                territorios_conquistados++;
+            }
+        }
+        return territorios_conquistados >= 3;
+    }
+    return 0;
 }
