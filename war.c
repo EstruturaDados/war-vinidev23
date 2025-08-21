@@ -161,3 +161,52 @@ struct Missao {
     int tipo;
     char descricao[100];
 };
+
+void inicializar_territorios(struct Territorio *mapa) {
+    strcpy(mapa[0].nome, "Asia");      strcpy(mapa[0].cor_exercito, "Azul");     mapa[0].num_tropas = 5;
+    strcpy(mapa[1].nome, "Africa");    strcpy(mapa[1].cor_exercito, "Vermelho"); mapa[1].num_tropas = 4;
+    strcpy(mapa[2].nome, "Europa");    strcpy(mapa[2].cor_exercito, "Verde");    mapa[2].num_tropas = 6;
+    strcpy(mapa[3].nome, "America");   strcpy(mapa[3].cor_exercito, "Amarelo");  mapa[3].num_tropas = 3;
+    strcpy(mapa[4].nome, "Oceania");   strcpy(mapa[4].cor_exercito, "Preto");    mapa[4].num_tropas = 2;
+}
+
+void exibir_mapa(const struct Territorio *mapa) {
+    printf("\n--- Estado Atual do Mapa ---\n");
+    printf("----------------------------------------------------------------\n");
+    printf("| No. | Nome do Territorio | Cor do Exercito | Numero de Tropas |\n");
+    printf("----------------------------------------------------------------\n");
+    for (int i = 0; i < NUM_TERRITORIOS; i++) {
+        printf("| %-3d | %-18s | %-15s | %-16d |\n", i + 1, mapa[i].nome, mapa[i].cor_exercicio, mapa[i].num_tropas);
+    }
+    printf("----------------------------------------------------------------\n");
+}
+
+void inicializar_missao(struct Missao *missao) {
+    missao->tipo = rand() % 2 + 1; // Sorteia 1 ou 2
+    if (missao->tipo == 1) {
+        strcpy(missao->descricao, "Destrua o exercito Verde.");
+    } else {
+        strcpy(missao->descricao, "Conquiste 3 territorios.");
+    }
+}
+
+void simular_ataque(struct Territorio *atacante, struct Territorio *defensor) {
+    int dado_ataque = rand() % 6 + 1;
+    int dado_defesa = rand() % 6 + 1;
+
+    printf("\n--- Batalha ---\n");
+    printf("Atacante (%s): %d\n", atacante->nome, dado_ataque);
+    printf("Defensor (%s): %d\n", defensor->nome, dado_defesa);
+
+    if (dado_ataque >= dado_defesa) {
+        printf("Atacante vence! %s perde 1 tropa.\n", defensor->nome);
+        defensor->num_tropas--;
+        if (defensor->num_tropas == 0) {
+            printf("%s foi conquistado por %s!\n", defensor->nome, atacante->nome);
+            strcpy(defensor->cor_exercito, atacante->cor_exercito);
+            defensor->num_tropas = 1;
+        }
+    } else {
+        printf("Defensor vence! Nenhuma mudanca.\n");
+    }
+}
