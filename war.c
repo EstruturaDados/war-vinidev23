@@ -156,3 +156,8 @@ struct Territorio {
     char cor_exercito[20];
     int num_tropas;
 };
+
+struct Missao {
+    int tipo;
+    char descricao[100];
+};
