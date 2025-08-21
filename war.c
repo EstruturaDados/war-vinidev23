@@ -57,3 +57,14 @@ struct Territorio {
     int num_tropas;
 };
 
+void exibir_mapa(struct Territorio *mapa, int num_territorios) {
+    printf("\n--- Estado Atual do Mapa ---\n");
+    printf("----------------------------------------------------------------\n");
+    printf("| No. | Nome do Territorio | Cor do Exercito | Numero de Tropas |\n");
+    printf("----------------------------------------------------------------\n");
+    for (int i = 0; i < num_territorios; i++) {
+        printf("| %-3d | %-18s | %-15s | %-16d |\n", i + 1, mapa[i].nome, mapa[i].cor_exercito, mapa[i].num_tropas);
+    }
+    printf("----------------------------------------------------------------\n");
+}
+
