@@ -231,3 +231,73 @@ int verificar_missao(const struct Missao *missao, const struct Territorio *mapa)
     }
     return 0;
 }
+
+int main() {
+    srand(time(NULL));
+
+    struct Territorio *mapa = calloc(NUM_TERRITORIOS, sizeof(struct Territorio));
+    if (mapa == NULL) {
+        printf("Erro de alocacao de memoria.\n");
+        return 1;
+    }
+
+    inicializar_territorios(mapa);
+
+    struct Missao missao;
+    inicializar_missao(&missao);
+
+    int opcao;
+    int atacante_idx, defensor_idx;
+
+    printf("--- Desafio WAR: Nivel Mestre ---\n");
+    printf("Sua missao e: %s\n", missao.descricao);
+
+    do {
+        exibir_mapa(mapa, &missao);
+        printf("\n--- Menu Principal ---\n");
+        printf("1 - Atacar\n");
+        printf("2 - Verificar Missao\n");
+        printf("0 - Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("\nEscolha os territorios para a batalha:\n");
+                printf("Territorio atacante (1-%d): ", NUM_TERRITORIOS);
+                scanf("%d", &atacante_idx);
+                printf("Territorio defensor (1-%d): ", NUM_TERRITORIOS);
+                scanf("%d", &defensor_idx);
+                while (getchar() != '\n');
+
+                if (atacante_idx < 1 || atacante_idx > NUM_TERRITORIOS || defensor_idx < 1 || defensor_idx > NUM_TERRITORIOS || atacante_idx == defensor_idx) {
+                    printf("Escolha invalida. Tente novamente.\n");
+                    continue;
+                }
+                
+                simular_ataque(&mapa[atacante_idx - 1], &mapa[defensor_idx - 1]);
+                break;
+
+            case 2:
+                if (verificar_missao(&missao, mapa)) {
+                    printf("\nParabens! Missao concluida! Voce venceu o jogo!\n");
+                    opcao = 0; // Termina o loop
+                } else {
+                    printf("\nMissao ainda nao concluida. Continue lutando!\n");
+                }
+                break;
+
+            case 0:
+                printf("\nSaindo do jogo...\n");
+                break;
+
+            default:
+                printf("\nOpcao invalida. Por favor, escolha novamente.\n");
+                break;
+        }
+
+    } while (opcao != 0);
+
+    free(mapa);
+    return 0;
+}
