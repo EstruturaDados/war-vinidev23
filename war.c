@@ -89,4 +89,16 @@ void simular_batalha(struct Territorio *atacante, struct Territorio *defensor) {
     }
 }
 
+int main() {
+    srand(time(NULL)); // Inicializa o gerador de numeros aleatorios
+
+    int num_territorios = 5;
+    struct Territorio *mapa = calloc(num_territorios, sizeof(struct Territorio));
+
+    if (mapa == NULL) {
+        printf("Erro de alocacao de memoria.\n");
+        return 1;
+    }
+
+    printf("--- Desafio WAR: Nivel Aventureiro ---\n\n");
 
