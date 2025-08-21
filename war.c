@@ -126,6 +126,19 @@ int main() {
         printf("Territorio defensor (1-%d): ", num_territorios);
         scanf("%d", &defensor_idx);
         while (getchar() != '\n');
-        
+
+         if (atacante_idx < 1 || atacante_idx > num_territorios || defensor_idx < 1 || defensor_idx > num_territorios || atacante_idx == defensor_idx) {
+            printf("Escolha invalida. Tente novamente.\n");
+            continue;
+        }
+
+        simular_batalha(&mapa[atacante_idx - 1], &mapa[defensor_idx - 1]);
+
+        printf("Continuar batalhando? (s/n): ");
+        scanf(" %c", &continuar);
+    }
+
+    free(mapa);
+    return 0;
 }
 
