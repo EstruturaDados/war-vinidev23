@@ -16,7 +16,7 @@ int main() {
 
     for (i = 0; i < 5; i++) {
         printf("Territorio %d:\n", i + 1);
-        
+
            printf("  Nome: ");
         fgets(mapa[i].nome, sizeof(mapa[i].nome), stdin);
         mapa[i].nome[strcspn(mapa[i].nome, "\n")] = '\0';
@@ -29,3 +29,16 @@ int main() {
         scanf("%d", &mapa[i].num_tropas);
         while (getchar() != '\n');
     }
+
+    printf("\n--- Estado Atual do Mapa ---\n");
+    printf("----------------------------------------------------------------\n");
+    printf("| No. | Nome do Territorio | Cor do Exercito | Numero de Tropas |\n");
+    printf("----------------------------------------------------------------\n");
+
+    for (i = 0; i < 5; i++) {
+        printf("| %-3d | %-18s | %-15s | %-16d |\n", i + 1, mapa[i].nome, mapa[i].cor_exercito, mapa[i].num_tropas);
+    }
+    printf("----------------------------------------------------------------\n");
+
+    return 0;
+}
