@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 struct Territorio {
     char nome[50];
@@ -42,3 +43,17 @@ int main() {
 
     return 0;
 }
+
+// Nível aventueiro
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+struct Territorio {
+    char nome[50];
+    char cor_exercito[20];
+    int num_tropas;
+};
+
