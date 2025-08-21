@@ -114,5 +114,18 @@ int main() {
         scanf("%d", &mapa[i].num_tropas);
         while (getchar() != '\n');
     }
+
+    int atacante_idx, defensor_idx;
+    char continuar = 's';
+    while (continuar == 's' || continuar == 'S') {
+        exibir_mapa(mapa, num_territorios);
+
+        printf("\nEscolha os territorios para a batalha:\n");
+        printf("Territorio atacante (1-%d): ", num_territorios);
+        scanf("%d", &atacante_idx);
+        printf("Territorio defensor (1-%d): ", num_territorios);
+        scanf("%d", &defensor_idx);
+        while (getchar() != '\n');
+        
 }
 
